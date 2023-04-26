@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>California Legislative Voting</title>
+	<style>
+		img {
+			max-width: 100%;
+			max-height: 100%;
+			cursor: pointer;
+		}
+		.dropzone {
+			width: 1100px;
+			height: 1100px;
+			border: 2px dashed #ccc;
+			padding: 100px;
+			margin: 100px;
+			float: left;
+		}
+		.yes {
+			clear: both;
+			margin-bottom: 100px;
+		 }
+    	.yes p {
+        	font-size: 24px;
+        	font-weight: bold;
+		}
+		.clear {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<h1>California Legislative Voting</h1>
+	<p>Drag an image file onto the drop zones below:</p>
+	<div class="yes">
+		<div class="dropzone" id="dropzone1" ondrop="dropHandler(event, 'dropzone1');" ondragover="dragOverHandler(event);">
+			<p>Yes</p>
+			<form action="/final.php" method="POST" enctype="multipart/form-data">
+				<input type="hidden" name="zoneId" value="dropzone1">
+				<label for="district">District:</label>
+				<input type="text" name="district" id="district" required>
+				<label for="name">Name:</label>
+				<input type="text" name="name" id="name" required>
+				<label for="party">Party:</label>
+				<input type="text" name="party" id="party" required>
+				<input type="file" name="image" accept="image/*" required>
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="dropzone" id="dropzone2" ondrop="dropHandler(event, 'dropzone2');" ondragover="dragOverHandler(event);">
+		<p style="font-size: 24px; font-weight: bold;">No</p>
+		<form action="/final.php" method="POST" enctype="multipart/form-data">
+			<input type="hidden" name="zoneId" value="dropzone2">
+			<label for="district">District:</label>
+			<input type="text" name="district" id="district" required>
+			<label for="name">Name:</label>
+			<input type="text" name="name" id="name" required>
+			<label for="party">Party:</label>
+			<input type="text" name="party" id="party" required>
+			<input type="file" name="image" accept="image/*" required>
+			<button type="submit">Submit</button>
+		</form>
+	</div>
+	<div class="clear"></div>
+    <script>
+        function dragOverHandler(event) {
+            event.preventDefault();
+            event.dataTransfer.dropEffect = "copy";
+        }
+
+        function dropHandler(event, zoneId) {
+            event.preventDefault();
+            var files = event.dataTransfer.files;
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                if (file.type.match(/^image\//
